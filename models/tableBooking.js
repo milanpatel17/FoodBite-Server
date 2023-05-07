@@ -4,18 +4,15 @@ const mongoose = require("mongoose");
 // Database Schema ((Note:- Schema is like a BluePrint of Model...))
 const tableBookingSchema = mongoose.Schema({
   no_of_seats: { type: String, required: true },
-  dateOfBooking: { 
-    type: String, required: true },
-  time: { 
-    type: String, required: true },
+  dateOfBooking: { type: String, required: true },
+  time: { type: String, required: true },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",
     required: true,
   },
   dateOnBooked: { type: Date, default: Date.now },
-}
- );
+});
 
 // ( "_id"  to  "id" using Virtuals) 
 tableBookingSchema.virtual('id').get(function(){

@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 // Database Schema ((Note:- Schema is like a BluePrint of Model...))
 const tableBookingSchema = mongoose.Schema({
   no_of_seats: { type: String, required: true },
-  dateOfBooking: {  type: {
+  dateOfBooking: { 
     type: String
-  }, required: true },
-  time: {  type: {
+  , required: true },
+  time: { 
     type: String
-  }, required: true },
+  , required: true },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",

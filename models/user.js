@@ -17,15 +17,19 @@ const userSchema = mongoose.Schema({
   },
   password: { type: String, required: true },
   address: { type: String, 
-            //required: true },
+            //required: true 
+           },
   mobile_no: { type: String, required: true },
   isAdmin: { type: Boolean, required: false },
   restaurant_orders: { type: String, 
-                      //required: true },
+                      //required: true 
+                     },
   tiffin_orders: { type: String, 
-                  //required: true },
+                  //required: true 
+                 },
   table_bookings: { type: String, 
-                   //required: true },
+                   //required: true 
+                  },
   date: { type: Date, default: Date.now },
 });
 

@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 const tableBookingSchema = mongoose.Schema({
   no_of_seats: { type: String, required: true },
   dateOfBooking: { 
-    $type: String, required: true },
+    type: String, required: true },
   time: { 
-    $type: String, required: true },
+    type: String, required: true },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",

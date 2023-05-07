@@ -16,7 +16,9 @@ const tableBookingSchema = mongoose.Schema({
     required: true,
   },
   dateOnBooked: { type: Date, default: Date.now },
-});
+},
+ { typeKey: '$type' } 
+ );
 
 // ( "_id"  to  "id" using Virtuals) 
 tableBookingSchema.virtual('id').get(function(){

@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 const tableBookingSchema = mongoose.Schema({
   no_of_seats: { type: String, required: true },
   dateOfBooking: { 
-    type: String
+    $type: String
   , required: true },
   time: { 
-    type: String
+    $type: String
   , required: true },
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
@@ -16,8 +16,7 @@ const tableBookingSchema = mongoose.Schema({
     required: true,
   },
   dateOnBooked: { type: Date, default: Date.now },
-},
- { typeKey: '$type' } 
+}
  );
 
 // ( "_id"  to  "id" using Virtuals) 

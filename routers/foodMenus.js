@@ -44,7 +44,7 @@ router.get(`/`, async (req, res) => {
 // GET_request (GET ALL FOOD-ITEMS LIST FROM DATABASE)
 router.get(`/items`, async (req, res) => {    // "items" added
   const restaurantId = req.query.restaurantId; //new added
-  const foodMenuList = await FoodMenu.find()
+  const foodMenuList = await FoodMenu.find({ restaurant: req.body.restaurant })
     .populate("restaurant")
     .select("-__v");
   res.send(foodMenuList);

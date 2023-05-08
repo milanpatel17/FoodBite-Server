@@ -37,7 +37,7 @@ const uploadOptions = multer({ storage: storage });
 router.get(`/`, async (req, res) => {
   const foodMenuList = await FoodMenu.find()
     .populate("restaurant")
-    .select("-__v");
+    .select("Menu");
   res.send(foodMenuList);
 });
 

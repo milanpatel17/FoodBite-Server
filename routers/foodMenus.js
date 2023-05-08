@@ -42,12 +42,30 @@ router.get(`/`, async (req, res) => {
 });
 
 // GET_request (GET ALL FOOD-ITEMS LIST FROM DATABASE)
-router.get(`/items?restaurantId=:restaurantId`, async (req, res) => {    // "items" added
-  const restaurantId = req.query.restaurantId; //new added
-  const foodMenuList = await FoodMenu.find({ restaurant: req.body.restaurant })
-    .populate("restaurant")
-    .select("-__v");
-  res.send(foodMenuList);
+router.get('/selectedFoodMenu', async (req, res) => {
+  try {
+    // Your code to fetch food items with restaurant information from the database or external API
+    const selectedFoodMenu = await FoodMenus.find().populate('restaurant');
+
+    // Map over each food item object and return only the restaurant id
+    const foodItems = selectedFoodMenu.map((foodItem) => {
+      return {
+        _id: foodItem._id,
+        name: foodItem.name,
+        image:foodItem.image,
+        price: foodItem.price,
+        description: foodItem.description,
+        restaurantId: foodItem.restaurant._id,
+        id: foodItem._id,
+      };
+    });
+
+    // Send the response as JSON
+    res.json(foodItems);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
 
 // GET_request (GET PARTICULAR FOOD_ITEM FROM DATABASE)

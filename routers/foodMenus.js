@@ -41,6 +41,15 @@ router.get(`/`, async (req, res) => {
   res.send(foodMenuList);
 });
 
+// GET_request (GET ALL FOOD-ITEMS LIST FROM DATABASE)
+router.get(`/items`, async (req, res) => {    // "items" added
+  const restaurantId = req.query.restaurantId; //new added
+  const foodMenuList = await FoodMenu.find()
+    .populate("restaurant")
+    .select("-__v");
+  res.send(foodMenuList);
+});
+
 // GET_request (GET PARTICULAR FOOD_ITEM FROM DATABASE)
 router.get("/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {

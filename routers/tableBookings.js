@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 router.get(`/`, async (req, res) => {
   const tableBookingList = await TableBooking.find()
     .populate("restaurant")
+  .sort({ date: -1 })
     .select("-__v");
   res.send(tableBookingList);
 });

@@ -10,11 +10,11 @@ const foodMenuSchema = mongoose.Schema({
   },
   price: { type: String, required: true },
   description: { type: String, required: true, default: 0 },
-//   restaurant: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "Restaurant",
-//     // required: true,
-//   },
+  restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+    // required: true,
+  },
   date: { type: Date, default: Date.now },
 });
 

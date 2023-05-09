@@ -95,41 +95,6 @@ router.post("/",  uploadOptions.single("image"),async (req, res) => {
   res.send(restaurant);
 });
 
-// add menu to restaurant
-router.post("/foodMenus", uploadOptions.single("image"), async (req, res) => {
-  const fileName = req.file.filename;
-  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
-
-  // Get Restaurant-order-items IDs...
-  const menuItemsIds = Promise.all(
-    req.body.Menu.map(async (orderItem) => {
-      let newMenuItem = new FoodMenus({
-        name: req.body.name,
-        image: `${basePath}${fileName}`,
-        price: req.body.price,
-        description: req.body.description,
-        date: req.body.date,
-      });
-
-      newMenuItem = await newMenuItem.save();
-
-      return newMenuItem._id;
-    })
-  );
-  const menuItemsIdsResolved = await menuItemsIds;
-
-  let menu = new Restaurant({
-    Menu: menuItemsIdsResolved,
-  });
-  orders = await orders.save();
-
-  if (!menu) {
-    return res.status(400).send("The menu can't be created !!!");
-  }
-
-  res.send(menu);
-});
-
 // PUT_request (UPDATE PARTICULAR RESTAURANT-DATA IN DATABASE)
 router.put("/:id",uploadOptions.single("image"), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {

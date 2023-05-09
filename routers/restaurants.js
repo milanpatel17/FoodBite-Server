@@ -95,6 +95,41 @@ router.post("/",  uploadOptions.single("image"),async (req, res) => {
   res.send(restaurant);
 });
 
+// add menu to restaurant
+router.post("/foodMenus", uploadOptions.single("image"), async (req, res) => {
+  const fileName = req.file.filename;
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+
+  // Get Restaurant-order-items IDs...
+  const menuItemsIds = Promise.all(
+    req.body.Menu.map(async (orderItem) => {
+      let newMenuItem = new FoodMenus({
+        name: req.body.name,
+        image: `${basePath}${fileName}`,
+        price: req.body.price,
+        description: req.body.description,
+        date: req.body.date,
+      });
+
+      newMenuItem = await newMenuItem.save();
+
+      return newMenuItem._id;
+    })
+  );
+  const menuItemsIdsResolved = await menuItemsIds;
+
+  let menu = new Restaurant({
+    Menu: menuItemsIdsResolved,
+  });
+  orders = await orders.save();
+
+  if (!menu) {
+    return res.status(400).send("The menu can't be created !!!");
+  }
+
+  res.send(menu);
+});
+
 // PUT_request (UPDATE PARTICULAR RESTAURANT-DATA IN DATABASE)
 router.put("/:id",uploadOptions.single("image"), async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
@@ -126,6 +161,38 @@ router.put("/:id",uploadOptions.single("image"), async (req, res) => {
       mobile_no: req.body.mobile_no,
       timings: req.body.timings,
       date: req.body.date,
+    },
+    { new: true }
+  );
+  if (!restaurant) {
+    return res.status(400).send("The restaurant can't be updated !!!");
+  }
+
+  res.send(restaurant);
+});
+
+// PUT_request for foodmenu (UPDATE PARTICULAR RESTAURANT-DATA IN DATABASE)
+router.put("/foodMenus/:id",uploadOptions.single("image"), async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).send("Invalid foodMenu ID !!!");
+  }
+  
+  const restaurantExist = await Restaurant.findById(req.params.id);
+  const file = req.file;
+  let imagePath;
+  if (file) {
+    const fileName = req.file.filename;
+    const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+    imagePath = `${basePath}${fileName}`; // if new image provided for update (update old image with new one)
+    
+  } else {
+    imagePath = restaurantExist.image; // no change in old image
+  }
+
+  const restaurant = await Restaurant.findByIdAndUpdate(
+    req.params.id,
+    {
+Menu : req.b
     },
     { new: true }
   );

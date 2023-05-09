@@ -35,7 +35,7 @@ const uploadOptions = multer({ storage: storage });
 /// APIS Calling------------------------------
 // GET_request (GET ALL FOOD-ITEMS LIST FROM DATABASE)
 router.get(`/`, async (req, res) => {
-  const foodMenuList = await Restaurant.find()
+  const foodMenuList = await FoodMenus.find()
     .select("-__v");
   res.send(foodMenuList);
 });

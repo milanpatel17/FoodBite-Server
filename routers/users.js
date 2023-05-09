@@ -108,7 +108,7 @@ router.post("/login", async (req, res) => {
   const secret = process.env.secret;
 
   if (!user) {
-    return res.status(400).send("The user not found !!!");
+    return res.status(400).send(message:"The user not found !!!");
   }
 
   if (user && bcrypt.compareSync(req.body.password, user.password)) {

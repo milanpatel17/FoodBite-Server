@@ -16,13 +16,6 @@ const restaurantSchema = mongoose.Schema({
   mobile_no: { type: String, required: true },
   timings: { type: String, required: true },
   date: { type: Date, default: Date.now },
-   Menu: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "FoodMenus",
-//       required: true,
-    },
-  ],
 });
 
 // ( "_id"  to  "id" using Virtuals) 

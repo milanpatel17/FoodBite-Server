@@ -136,38 +136,6 @@ router.put("/:id",uploadOptions.single("image"), async (req, res) => {
   res.send(restaurant);
 });
 
-// PUT_request for foodmenu (UPDATE PARTICULAR RESTAURANT-DATA IN DATABASE)
-router.put("/foodMenus/:id",uploadOptions.single("image"), async (req, res) => {
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("Invalid foodMenu ID !!!");
-  }
-  
-  const restaurantExist = await Restaurant.findById(req.params.id);
-  const file = req.file;
-  let imagePath;
-  if (file) {
-    const fileName = req.file.filename;
-    const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
-    imagePath = `${basePath}${fileName}`; // if new image provided for update (update old image with new one)
-    
-  } else {
-    imagePath = restaurantExist.image; // no change in old image
-  }
-
-  const restaurant = await Restaurant.findByIdAndUpdate(
-    req.params.id,
-    {
-Menu : req.b
-    },
-    { new: true }
-  );
-  if (!restaurant) {
-    return res.status(400).send("The restaurant can't be updated !!!");
-  }
-
-  res.send(restaurant);
-});
-
 // DELETE_request (REMOVE PARTICULAR RESTAURANT FROM DATABASE)
 router.delete("/:id", async (req, res) => {
   const restId = await Restaurant.findById(req.params.id); // find user in database with its email_id

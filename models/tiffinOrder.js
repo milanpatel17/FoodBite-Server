@@ -21,7 +21,7 @@ const TiffinOrderSchema = mongoose.Schema({
   mobile_no: { type: String, required: true },
   total_price: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  status: { type: String, required: true, default: "RestaurantOrder Accepted !!!" },
+  status: { type: String, required: true, default: "Order Accepted !!!" },
 });
 
 // ( "_id"  to  "id" using Virtuals)

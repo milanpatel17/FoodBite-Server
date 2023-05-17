@@ -19,7 +19,9 @@ const userSchema = mongoose.Schema({
   address: { type: String, 
             //required: true 
            },
-  mobile_no: { type: String, required: true },
+  mobile_no: { type: String, 
+             // required: true 
+             },
   isAdmin: { type: Boolean, required: false },
   restaurant_orders: { type: String, 
                       //required: true 
